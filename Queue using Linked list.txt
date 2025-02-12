@@ -1,0 +1,79 @@
+// Queue using Linked list
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+    int data;
+    struct node*next;
+}*front=NULL,*rear=NULL;
+void enqueue(int x){
+    struct node*t=(struct node*)malloc(sizeof(struct node));
+    if(t==NULL){
+        printf("queue is full\n");
+    }
+    else{
+        t->data=x;
+        if(front==NULL)front=rear=t;
+        else{
+            rear->next=t;
+            rear=t;
+        }
+    }
+}
+int dequeue(){
+    int x=-1;
+    if(front==NULL){
+        printf("Queue is empty\n");
+    }
+    else{
+        x=front->data;
+        struct node*t=front;
+        front=front->next;
+        free(t);
+    }
+    return x;
+}
+void display(){
+    if(front==NULL){
+        printf("Queue is empty\n");
+    }
+    else{
+       struct node*t=front;
+       while(t){
+           printf("%d ",t->data);
+           t=t->next;
+       }
+       printf("\n");
+    }
+}
+int peek(int pos){
+    int x=-1;
+     if(front==NULL){
+        printf("Queue is empty\n");
+    }
+    else{
+       struct node*t=front;
+        int i;
+        for(i=0;i<(pos-1)&&t;i++){
+            t=t->next;
+        }
+        if(t){
+        x=t->data;
+        }
+        return x;
+        
+    }
+       
+}
+int main() {
+   enqueue(10);
+   enqueue(20);
+   enqueue(30);
+   enqueue(40);
+   enqueue(50);
+    display();
+    printf("%d\n",dequeue());
+    display();
+    printf("%d ",peek(3));
+      
+    return 0;
+}
